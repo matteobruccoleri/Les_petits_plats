@@ -14,10 +14,7 @@ export default class RecipeManager {
         this.appliancesDropdown = new Dropdown('appliancesDropdown'); // Dropdown pour les appareils
     }
 
-    /**
-     * Récupère les recettes depuis un fichier JSON local.
-     * @returns {Array} Tableau d'objets recette.
-     */
+    // Récupère les recettes depuis un fichier JSON local.
     async getRecipes() {
         try {
             const response = await fetch("./data/recipes.json");
@@ -28,10 +25,7 @@ export default class RecipeManager {
         }
     }
 
-    /**
-     * Affiche les recettes sur la page.
-     * @param {Array} recipes - Tableau d'objets recette à afficher.
-     */
+    // Affiche les recettes sur la page.
     displayRecipes(recipes) {
         const section = document.querySelector('.recipes_wrapper');
         section.innerHTML = ''; // Efface les recettes existantes
@@ -39,19 +33,14 @@ export default class RecipeManager {
         this.updateRecipeCount(recipes.length); // Met à jour le nombre de recettes
     }
 
-    /**
-     * Affiche un message lorsqu'aucune recette n'est trouvée.
-     * @param {string} searchTerm - Le terme de recherche saisi par l'utilisateur.
-     */
+    // Affiche un message lorsqu'aucune recette n'est trouvée.
     displayNoResultsMessage(searchTerm) {
         const noResultsElement = document.getElementById('noResultsMessage');
         noResultsElement.innerHTML = `<p class="no-results">Aucune recette ne contient '${searchTerm}'. Vous pouvez chercher « tarte aux pommes », « poisson », etc.</p>`;
         this.updateRecipeCount(0); // Met à jour le nombre de recettes à 0
     }
 
-    /**
-     * Effectue la recherche et filtre les recettes en fonction du terme de recherche et des filtres actifs.
-     */
+    // Effectue la recherche et filtre les recettes en fonction du terme de recherche et des filtres actifs.
     performSearch() {
         const searchInput = document.getElementById('searchInput');
         const searchTerm = searchInput.value.trim().toLowerCase();
@@ -82,9 +71,7 @@ export default class RecipeManager {
         this.updateDropdowns(filteredRecipes); // Met à jour les options des dropdowns
     }
 
-    /**
-     * Attache les écouteurs d'événements pour la barre de recherche et les boutons des dropdowns.
-     */
+    // Attache les écouteurs d'événements pour la barre de recherche et les boutons des dropdowns.
     attachEventListeners() {
         const searchInput = document.getElementById('searchInput');
         const dropdownButtons = document.querySelectorAll('.sort_button');
@@ -123,9 +110,7 @@ export default class RecipeManager {
         });
     }
 
-    /**
-     * Initialise le RecipeManager en récupérant les recettes, les affichant et en attachant les écouteurs d'événements.
-     */
+    // Initialise le RecipeManager en récupérant les recettes, les affichant et en attachant les écouteurs d'événements.
     async init() {
         const dataRecipes = await this.getRecipes();
         this.allRecipes = dataRecipes.map(dataRecipe => new Recipes(dataRecipe));
@@ -134,10 +119,7 @@ export default class RecipeManager {
         this.updateDropdowns(this.allRecipes); // Remplit les dropdowns avec les données initiales des recettes
     }
 
-    /**
-     * Met à jour les options des dropdowns en fonction des recettes filtrées.
-     * @param {Array} recipes - Tableau des objets recette filtrés.
-     */
+    // Met à jour les options des dropdowns en fonction des recettes filtrées.
     updateDropdowns(recipes) {
         const ingredients = new Set();
         const utensils = new Set();
@@ -154,10 +136,7 @@ export default class RecipeManager {
         this.appliancesDropdown.fillDropdown(Array.from(appliances));
     }
 
-    /**
-     * Met à jour le nombre de recettes affichées sur la page.
-     * @param {number} count - Le nombre de recettes à afficher.
-     */
+    // Met à jour le nombre de recettes affichées sur la page.
     updateRecipeCount(count) {
         const totalRecipesElement = document.querySelector('.total_recipes');
         totalRecipesElement.textContent = `${count} recettes`;
