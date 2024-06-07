@@ -14,10 +14,7 @@ export default class RecipeManager {
         this.appliancesDropdown = new Dropdown('appliancesDropdown'); // Dropdown pour les appareils
     }
 
-    /**
-     * Récupère les recettes depuis un fichier JSON local.
-     * @returns {Array} Tableau d'objets recette.
-     */
+    // Récupère les recettes depuis un fichier JSON local.
     async getRecipes() {
         try {
             const response = await fetch("./data/recipes.json");
@@ -28,10 +25,7 @@ export default class RecipeManager {
         }
     }
 
-    /**
-     * Affiche les recettes sur la page.
-     * @param {Array} recipes - Tableau d'objets recette à afficher.
-     */
+    // Affiche les recettes sur la page.
     displayRecipes(recipes) {
         const section = document.querySelector('.recipes_wrapper');
         section.innerHTML = ''; // Efface les recettes existantes
@@ -39,52 +33,68 @@ export default class RecipeManager {
         this.updateRecipeCount(recipes.length); // Met à jour le nombre de recettes
     }
 
-    /**
-     * Affiche un message lorsqu'aucune recette n'est trouvée.
-     * @param {string} searchTerm - Le terme de recherche saisi par l'utilisateur.
-     */
+    // Affiche un message lorsqu'aucune recette n'est trouvée.
+
     displayNoResultsMessage(searchTerm) {
         const noResultsElement = document.getElementById('noResultsMessage');
         noResultsElement.innerHTML = `<p class="no-results">Aucune recette ne contient '${searchTerm}'. Vous pouvez chercher « tarte aux pommes », « poisson », etc.</p>`;
         this.updateRecipeCount(0); // Met à jour le nombre de recettes à 0
     }
 
-    /**
-     * Effectue la recherche et filtre les recettes en fonction du terme de recherche et des filtres actifs.
-     */
+    // Effectue la recherche et filtre les recettes en fonction du terme de recherche et des filtres actifs.
     performSearch() {
         const searchInput = document.getElementById('searchInput');
         const searchTerm = searchInput.value.trim().toLowerCase();
-        let filteredRecipes = this.allRecipes;
-
+        let filteredRecipes = [];
+    
         // Filtre par terme de recherche si celui-ci contient 3 caractères ou plus
         if (searchTerm.length >= 3) {
-            filteredRecipes = this.allRecipes.filter(recipe => recipe.matchesSearch(searchTerm));
+            for (let i = 0; i < this.allRecipes.length; i++) {
+                if (this.allRecipes[i].matchesSearch(searchTerm)) {
+                    filteredRecipes.push(this.allRecipes[i]);
+                }
+            }
+        } else {
+            filteredRecipes = this.allRecipes;
         }
-
+    
         // Filtre par filtres actifs (ingrédients, ustensiles, appareils)
-        filteredRecipes = filteredRecipes.filter(recipe => {
-            const matchesIngredients = this.activeFilters.ingredients.length === 0 || this.activeFilters.ingredients.some(filter => recipe.ingredients.map(ing => ing.ingredient.toLowerCase()).includes(filter.toLowerCase()));
-            const matchesUstensils = this.activeFilters.ustensils.length === 0 || this.activeFilters.ustensils.some(filter => recipe.ustensils.map(ust => ust.toLowerCase()).includes(filter.toLowerCase()));
+        let finalFilteredRecipes = [];
+        for (let i = 0; i < filteredRecipes.length; i++) {
+            const recipe = filteredRecipes[i];
+            const matchesIngredients = this.activeFilters.ingredients.length === 0 || this.matchesFilters(recipe.ingredients.map(ing => ing.ingredient.toLowerCase()), this.activeFilters.ingredients);
+            const matchesUstensils = this.activeFilters.ustensils.length === 0 || this.matchesFilters(recipe.ustensils.map(ust => ust.toLowerCase()), this.activeFilters.ustensils);
             const matchesAppliances = this.activeFilters.appliances.length === 0 || this.activeFilters.appliances.includes(recipe.appliance.toLowerCase());
-
-            return matchesIngredients && matchesUstensils && matchesAppliances;
-        });
-
+    
+            if (matchesIngredients && matchesUstensils && matchesAppliances) {
+                finalFilteredRecipes.push(recipe);
+            }
+        }
+    
         const noResultsElement = document.getElementById('noResultsMessage');
-        if (filteredRecipes.length > 0) {
+        if (finalFilteredRecipes.length > 0) {
             if (noResultsElement) noResultsElement.innerHTML = ''; // Efface le message d'absence de résultats
-            this.displayRecipes(filteredRecipes); // Affiche les recettes filtrées
+            this.displayRecipes(finalFilteredRecipes); // Affiche les recettes filtrées
         } else {
             this.displayNoResultsMessage(searchTerm); // Affiche le message d'absence de résultats
         }
-        
-        this.updateDropdowns(filteredRecipes); // Met à jour les options des dropdowns
+    
+        this.updateDropdowns(finalFilteredRecipes); // Met à jour les options des dropdowns
+    }
+    
+    // Vérifie si tous les éléments des filtres actifs sont présents dans les éléments de la recette.
+
+    matchesFilters(recipeElements, activeFilters) {
+        for (let i = 0; i < activeFilters.length; i++) {
+            if (!recipeElements.includes(activeFilters[i].toLowerCase())) {
+                return false;
+            }
+        }
+        return true;
     }
 
-    /**
-     * Attache les écouteurs d'événements pour la barre de recherche et les boutons des dropdowns.
-     */
+    // Attache les écouteurs d'événements pour la barre de recherche et les boutons des dropdowns.
+
     attachEventListeners() {
         const searchInput = document.getElementById('searchInput');
         const dropdownButtons = document.querySelectorAll('.sort_button');
@@ -123,9 +133,7 @@ export default class RecipeManager {
         });
     }
 
-    /**
-     * Initialise le RecipeManager en récupérant les recettes, les affichant et en attachant les écouteurs d'événements.
-     */
+    // Initialise le RecipeManager en récupérant les recettes, les affichant et en attachant les écouteurs d'événements.
     async init() {
         const dataRecipes = await this.getRecipes();
         this.allRecipes = dataRecipes.map(dataRecipe => new Recipes(dataRecipe));
@@ -134,10 +142,9 @@ export default class RecipeManager {
         this.updateDropdowns(this.allRecipes); // Remplit les dropdowns avec les données initiales des recettes
     }
 
-    /**
-     * Met à jour les options des dropdowns en fonction des recettes filtrées.
-     * @param {Array} recipes - Tableau des objets recette filtrés.
-     */
+    // Met à jour les options des dropdowns en fonction des recettes filtrées
+
+
     updateDropdowns(recipes) {
         const ingredients = new Set();
         const utensils = new Set();
@@ -154,10 +161,7 @@ export default class RecipeManager {
         this.appliancesDropdown.fillDropdown(Array.from(appliances));
     }
 
-    /**
-     * Met à jour le nombre de recettes affichées sur la page.
-     * @param {number} count - Le nombre de recettes à afficher.
-     */
+    // Met à jour le nombre de recettes affichées sur la page.
     updateRecipeCount(count) {
         const totalRecipesElement = document.querySelector('.total_recipes');
         totalRecipesElement.textContent = `${count} recettes`;
