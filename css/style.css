@@ -1,0 +1,361 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    outline-color: transparent;
+}
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #E5E5E5;
+    margin: 0;
+    font-family: "Manrope";
+}
+h1, h2 {
+    font-family: "Anton";
+    font-weight: 400;
+}
+h1 {
+    color: #FFD15B;
+    font-size: 48px;
+    line-height: 66px;
+    text-align: center;
+}
+h1 span {
+    display: block;
+}
+h2 {
+    font-size: 18px;
+}
+h3 {
+    font-family: "Manrope";
+    font-size: 14px;
+    font-weight: 700;
+    color: #7A7A7A;
+    text-transform: uppercase;
+}
+p {
+    font-size: 14px;
+    color: #1B1B1B;
+    line-height: 20px;
+}
+/*******************/
+/***** header *****/
+header {
+    position: relative;
+    background-image: url(../assets/img/lampos-aritonang.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 75vh;
+    width: 100%;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.header_logo {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+}
+.header_logo img {
+    height: 25px;
+}
+.header_banner {
+    width: 100%;
+}
+.search_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    width: 65%;
+}
+form {
+    width: 100%;
+    display: flex;align-items: center;
+    height: max-content;
+}
+.form_search {
+    width: 100%;
+    border-radius: 10px 0 0 10px;
+    height: 70px;
+    outline: none;
+    border: none;
+    padding: 10px 30px;
+    color: #7A7A7A;
+    font-size: 16px;
+    font-family: "Manrope";
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+    border: 2px solid #7A7A7A;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+}
+
+.form_submit {
+    height: 70px;
+    width: 70px;
+    border-radius: 0px 10px 10px 0px;
+    border: none;
+    background-color: #fff;
+    cursor: pointer;
+    position: relative;
+}
+.form_submit img {
+    position: absolute;
+    height: 55px;
+    width: 55px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: 0.2s;
+}
+.form_submit .yellow_loop {
+    opacity: 0;
+}
+.form_submit:hover .black_loop {
+    opacity: 0;
+}
+.form_submit:hover .yellow_loop {
+    opacity: 1;
+}
+
+/*****************/
+/***** main *****/
+main {
+    width: 85%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    padding: 100px 0;
+}
+.total_recipes {
+    font-family: "Anton";
+    font-size: 20px;
+}
+.recipes_filter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.dropdown_wrapper {
+    display: flex;
+    gap: 75px;
+}
+.dropdown_filter {
+    border-radius: 10px;
+    position: relative;
+    width: 220px;
+}
+.hidden {
+    display: none;
+}
+.recettes_filter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.total_recettes {
+    color: #1B1B1B;
+    font-size: 22px;
+    font-weight: 400;
+    font-family: "Anton";
+}
+.recipes_wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px;
+    align-items: stretch;
+    transition: 0.3s linear;
+}
+.recipe {
+    background-color: #FFF;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+}
+.recipe_text {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.recipe_description, .recipe_ingredients {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.recipe img {
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+    vertical-align: middle;
+}
+.recipe_time {
+    position: absolute;
+    top: 2%;
+    right: 5%;
+    border-radius: 25px;
+    background-color: #FFD15B;
+    padding: 5px 15px;
+}
+
+.ingredients_content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+.ingredient_name {
+    font-weight: 500;
+}
+.quantity_unit {
+    color: #7A7A7A;
+    font-weight: 400;
+}
+
+.selected-background {
+    background-color: #FFD15B;
+}
+.sort_button {
+    background-color: #ffff;
+    color: #1b1b1b;
+    border-radius: 10px;
+    border: none;
+    width: 100%;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 20px;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sort_button.radius_bottom_none {
+    border-radius: 5px 5px 0 0;
+     /* transition:  0.3s ease;*/ 
+}
+.sort_button:focus-visible {
+    background-color: #DB8876;
+    color: #000;
+    /*border: 3px solid #000;*/
+    outline: 3px solid #000;
+    border-radius: 5px;
+    /*outline: 0;*/
+}
+/* dropdown */
+.sort_dropdown {
+    position: absolute;
+    top: 45px;
+    width: 100%;
+    z-index: 1;
+    background-color: #fff;
+    border-radius: 0 0 10px 10px;
+    padding: 0;
+    overflow-x: hidden;
+    max-height: 0;
+    transition: 0.3s ease-out;
+    scrollbar-width: none;
+}
+.sort_dropdown.show {
+    max-height: 248px;
+    transition: 0.3s ease-out;
+}
+
+.sort_dropdown li {
+    color: #1b1b1b;
+    padding: 20px;
+    text-decoration: none;
+    text-align: left;
+    font-size: 16px;
+    position: relative;
+    list-style: none;
+    cursor: pointer;
+    font-weight: 400;
+    width: auto;
+}
+
+.sort_dropdown li:hover {
+    background-color: #FFD15B;
+}
+
+.dropdown_filter .li_form_dropdown {
+    width: 100%;
+}
+
+.dropdown_filter .li_form_dropdown:hover {
+    background-color: transparent;
+}
+.form_dropdown {
+    width: 100%;
+    border: 1px solid #a0a0a0;
+    border-radius: 5px;
+    position: relative;
+    width: max-content;
+    padding: 10px 5px;
+}
+.dropdown-search {
+    outline: none;
+    border: none;
+}
+.selected_filters {
+    display: flex;
+    gap: 20px;
+}
+.selected-filter {
+    background-color: #FFD15B;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.selected-filter::after {
+    content: "";
+    background-image: url(/assets/icons/icon_close.svg);
+    width: 17px;
+    height: 17px;
+    background-repeat: no-repeat;
+}
+.grey_loop {
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    top: 50%;
+    right: 10px;
+    transform: translate(0%, -50%);
+    transition: 0.2s;
+}
+
+.sort_dropdown li:focus-visible {
+    background-color: #DB8876;
+    color: #000;
+    outline: 0;
+    border: 3px solid #000;
+    font-weight: 600;
+}
+
+.sort_dropdown a:hover {
+    background-color: #DB8876;
+    color: #000;
+}
+  
+.chevron {
+    transition: transform 0.3s ease;
+}
+.rotate {
+    transform: rotate(-180deg); 
+}
+
+.no-results {
+    font-size: 20px;
+    line-height: 140%;
+    color: #c60000;
+}

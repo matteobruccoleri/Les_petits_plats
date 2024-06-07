@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/ico" href="assets/icons/favicon.ico">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <!-- End Fonts -->
+    <title>Les petits plats</title>
+</head>
+<body class="bg-gray-200">
+    <header>
+        <a class="header_logo" href="index.html" title="Les petits plats">
+            <img src="assets/img/logo_les_petits_plats.png" alt="logo les petits plats">
+        </a>
+        <div class="search_wrapper">
+            <h1 class="">Cherchez parmi plus de 1500 recettes<span>du quotidien, simples et délicieuses</span></h1>
+            <form> 
+                <input class="form_search" type="text" placeholder="Rechercher une recette, un ingrédient, ..." id="searchInput">            
+                <a class="form_submit" type="submit" href="#main">
+                    <img class="black_loop" src="assets/icons/icon_black_loop.svg" alt="Rechercher">
+                    <img class="yellow_loop" src="assets/icons/icon_yellow_loop.svg" alt="Rechercher">
+                </a>
+            </form>
+        </div>
+    </header>    
+    <main id="main">
+        <div class="recipes_filter">
+            <div class="dropdown_wrapper">
+                <!-- Ingredients Dropdown -->
+                <div class="dropdown_filter">
+                    <div class="filter_section">
+                        <button id="ingredientsButton" class="sort_button" role="button" aria-haspopup="listbox" aria-controls="ingredientsDropdown">
+                            <span class="sort_button_text">Ingrédients</span>
+                            <img src="assets/icons/chevron.svg" class="chevron" alt="icon chevron"/>
+                        </button>
+                        <ul id="ingredientsDropdown" class="sort_dropdown" role="listbox" aria-labelledby="ingredientsButton"></ul>
+                    </div>
+                </div>
+                <!-- Ustensils Dropdown -->
+                <div class="dropdown_filter">
+                    <div class="filter_section">
+                        <button id="ustensilsButton" class="sort_button" role="button" aria-haspopup="listbox" aria-controls="ustensilsDropdown">
+                            <span class="sort_button_text">Ustensiles</span>
+                            <img src="assets/icons/chevron.svg" class="chevron" alt="icon chevron"/>
+                        </button>
+                        <ul id="ustensilsDropdown" class="sort_dropdown" role="listbox" aria-labelledby="ustensilsButton"></ul>
+                    </div>
+                </div>
+                <!-- appliances Dropdown -->
+                <div class="dropdown_filter">
+                    <div class="filter_section">
+                        <button id="appliancesButton" class="sort_button" role="button" aria-haspopup="listbox" aria-controls="appliancesDropdown">
+                            <span class="sort_button_text">Appareils</span>
+                            <img src="assets/icons/chevron.svg" class="chevron" alt="icon chevron"/>
+                        </button>
+                        <ul id="appliancesDropdown" class="sort_dropdown" role="listbox" aria-labelledby="appliancesButton"></ul>
+                    </div>
+                </div>
+            </div>
+            <p class="total_recipes">50 recettes</p>
+        </div>
+        <!-- selected_filters -->
+        <div class="selected_filters" id="selectedFilters"></div>
+        <div id="noResultsMessage"></div>
+        <section class="recipes_wrapper"></section>
+    </main>
+    <script type="module" src="scripts/pages/index.js"></script>
+</body>
+</html>
