@@ -34,7 +34,6 @@ export default class RecipeManager {
     }
 
     // Affiche un message lorsqu'aucune recette n'est trouvée.
-
     displayNoResultsMessage(searchTerm) {
         const noResultsElement = document.getElementById('noResultsMessage');
         noResultsElement.innerHTML = `<p class="no-results">Aucune recette ne contient '${searchTerm}'. Vous pouvez chercher « tarte aux pommes », « poisson », etc.</p>`;
@@ -83,7 +82,6 @@ export default class RecipeManager {
     }
     
     // Vérifie si tous les éléments des filtres actifs sont présents dans les éléments de la recette.
-
     matchesFilters(recipeElements, activeFilters) {
         for (let i = 0; i < activeFilters.length; i++) {
             if (!recipeElements.includes(activeFilters[i].toLowerCase())) {
@@ -94,7 +92,6 @@ export default class RecipeManager {
     }
 
     // Attache les écouteurs d'événements pour la barre de recherche et les boutons des dropdowns.
-
     attachEventListeners() {
         const searchInput = document.getElementById('searchInput');
         const dropdownButtons = document.querySelectorAll('.sort_button');
@@ -142,9 +139,7 @@ export default class RecipeManager {
         this.updateDropdowns(this.allRecipes); // Remplit les dropdowns avec les données initiales des recettes
     }
 
-    // Met à jour les options des dropdowns en fonction des recettes filtrées
-
-
+    // Met à jour les options des dropdowns en fonction des recettes filtrées.
     updateDropdowns(recipes) {
         const ingredients = new Set();
         const utensils = new Set();
