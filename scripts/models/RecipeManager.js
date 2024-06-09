@@ -1,5 +1,5 @@
 import Recipes from "../models/Recipes.js";
-import Dropdown from "../models/Dropdown.js"; // Assurez-vous que le chemin est correct
+import Dropdown from "../models/Dropdown.js";
 
 export default class RecipeManager {
     constructor() {
