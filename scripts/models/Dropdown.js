@@ -2,7 +2,7 @@ export default class Dropdown {
     constructor(dropdownId) {
         this.dropdownId = dropdownId;
         this.dropdown = document.getElementById(dropdownId);
-        this.selectedFiltersDiv = document.getElementById('selectedFilters'); // Div unique pour les filtres sélectionnés
+        this.selectedFiltersDiv = document.getElementById('selectedFilters');
         this.selectedItems = new Set(); // Gérer les éléments sélectionnés
     }
 
