@@ -239,20 +239,17 @@ main {
 
 .sort_button.radius_bottom_none {
     border-radius: 5px 5px 0 0;
-     /* transition:  0.3s ease;*/ 
 }
 .sort_button:focus-visible {
     background-color: #DB8876;
     color: #000;
-    /*border: 3px solid #000;*/
     outline: 3px solid #000;
     border-radius: 5px;
-    /*outline: 0;*/
 }
 /* dropdown */
 .sort_dropdown {
     position: absolute;
-    top: 45px;
+    top: 42px;
     width: 100%;
     z-index: 1;
     background-color: #fff;
@@ -262,6 +259,7 @@ main {
     max-height: 0;
     transition: 0.3s ease-out;
     scrollbar-width: none;
+    padding-top: 5px;
 }
 .sort_dropdown.show {
     max-height: 248px;
@@ -297,12 +295,12 @@ main {
     border: 1px solid #a0a0a0;
     border-radius: 5px;
     position: relative;
-    width: max-content;
     padding: 10px 5px;
 }
 .dropdown-search {
     outline: none;
     border: none;
+    width: 100%;
 }
 .selected_filters {
     display: flex;
@@ -358,4 +356,93 @@ main {
     font-size: 20px;
     line-height: 140%;
     color: #c60000;
+}
+
+
+@media screen and (max-width: 1440px) {
+    h1 {
+        font-size: 42px;
+    }
+    .dropdown_wrapper {
+        gap: 30px;
+    }
+    .dropdown_filter {
+        width: 160px;
+    }
+    .sort_button {
+        font-size: 18px;
+    }
+    .recipes_wrapper {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media screen and (max-width: 1024px) {
+    h1 {
+        font-size: 32px;
+    }
+    .dropdown_wrapper {
+        gap: 25px;
+    }
+    .recipes_wrapper {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+@media screen and (max-width: 768px) {
+    h1 {
+        font-size: 28px;
+        line-height: 40px;
+    }
+    .search_wrapper {
+        width: 90%;
+    }
+    .form_search {
+        height: 50px;
+        font: 14px;
+        padding: 10px;
+    }
+    .form_submit {
+        height: 50px;
+        width: 60px;
+    }
+    .form_submit img {
+        height: 40px;
+        width: 40px;
+    }
+    main {
+        padding: 50px 0;
+        width: 90%;
+        gap: 25px;
+    }
+    .recipes_filter {
+        flex-direction: column;
+        gap: 20px;
+        align-items: flex-start;
+    }
+    .total_recipes {
+        order: -1;
+    }
+    .dropdown_wrapper {
+        flex-direction: column;
+        width: 100%;
+        gap: 15px;
+    }
+    .dropdown_filter {
+        width: 100%;
+    }
+    .sort_button {
+        gap: 10px;
+        padding: 15px;
+        font-size: 18px;
+    }
+
+    .sort_dropdown li {
+        font-size: 14px;
+        padding: 15px;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .form_search {
+        font-size: 12px;
+    }
 }
