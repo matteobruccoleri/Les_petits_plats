@@ -33,7 +33,7 @@ export default class RecipeManager {
         this.updateRecipeCount(recipes.length); // Met à jour le nombre de recettes
     }
 
-    // Affiche un message lorsqu'aucune recette n'est trouvée.
+    // Affiche un message lorsqu'aucune recette n'est pas trouvée.
     displayNoResultsMessage(searchTerm) {
         const noResultsElement = document.getElementById('noResultsMessage');
         noResultsElement.innerHTML = `<p class="no-results">Aucune recette ne contient '${searchTerm}'. Vous pouvez chercher « tarte aux pommes », « poisson », etc.</p>`;
