@@ -53,9 +53,9 @@ export default class RecipeManager {
 
         // Filtre par filtres actifs (ingrédients, ustensiles, appareils)
         filteredRecipes = filteredRecipes.filter(recipe => {
-            const matchesIngredients = this.activeFilters.ingredients.length === 0 || this.activeFilters.ingredients.some(filter => recipe.ingredients.map(ing => ing.ingredient.toLowerCase()).includes(filter.toLowerCase()));
-            const matchesUstensils = this.activeFilters.ustensils.length === 0 || this.activeFilters.ustensils.some(filter => recipe.ustensils.map(ust => ust.toLowerCase()).includes(filter.toLowerCase()));
-            const matchesAppliances = this.activeFilters.appliances.length === 0 || this.activeFilters.appliances.includes(recipe.appliance.toLowerCase());
+            const matchesIngredients = this.activeFilters.ingredients.length === 0 || this.activeFilters.ingredients.every(filter => recipe.ingredients.map(ing => ing.ingredient.toLowerCase()).includes(filter.toLowerCase()));
+            const matchesUstensils = this.activeFilters.ustensils.length === 0 || this.activeFilters.ustensils.every(filter => recipe.ustensils.map(ust => ust.toLowerCase()).includes(filter.toLowerCase()));
+            const matchesAppliances = this.activeFilters.appliances.length === 0 || this.activeFilters.appliances.every(recipe.appliance.toLowerCase());
 
             return matchesIngredients && matchesUstensils && matchesAppliances;
         });
