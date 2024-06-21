@@ -254,7 +254,7 @@ main {
     max-height: 0;
     transition: 0.3s ease-out;
     scrollbar-width: none;
-    padding-top: 5px;
+    padding-top: 1px;
 }
 .sort_dropdown.show {
     max-height: 248px;
