@@ -87,13 +87,7 @@ form {
     color: #7A7A7A;
     font-size: 16px;
     font-family: "Manrope";
-}
-
-input[type="search"]::-webkit-search-cancel-button {
-    border: 2px solid #7A7A7A;
-    height: 50px;
-    width: 50px;
-    cursor: pointer;
+    background-color: #fff;
 }
 
 .form_submit {
@@ -104,6 +98,7 @@ input[type="search"]::-webkit-search-cancel-button {
     background-color: #fff;
     cursor: pointer;
     position: relative;
+
 }
 .form_submit img {
     position: absolute;
