@@ -104,13 +104,21 @@ export default class RecipeManager {
 
         // Toggle la visibilité des dropdowns lors du clic sur les boutons
         dropdownButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const dropdownId = button.getAttribute('aria-controls');
-                const dropdown = document.getElementById(dropdownId);
-                const chevron = button.querySelector('.chevron');
+            button.addEventListener('click', (event) => {
+                event.stopPropagation(); // Empêche la propagation de l'événement de clic
+                this.toggleDropdown(button);
+            });
+        });
 
-                dropdown.classList.toggle('show');
-                chevron.classList.toggle('rotate');
+        // Ferme les dropdowns lorsqu'on clique à l'extérieur
+        document.addEventListener('click', (event) => {
+            this.closeDropdowns(event);
+        });
+
+        // Empêche la fermeture du dropdown lors d'un clic à l'intérieur
+        document.querySelectorAll('.sort_dropdown').forEach(dropdown => {
+            dropdown.addEventListener('click', (event) => {
+                event.stopPropagation();
             });
         });
 
@@ -130,6 +138,43 @@ export default class RecipeManager {
         });
     }
 
+    // Affiche ou cache le dropdown sélectionné et ferme les autres
+    toggleDropdown(button) {
+        const dropdownId = button.getAttribute('aria-controls');
+        const dropdown = document.getElementById(dropdownId);
+        const chevron = button.querySelector('.chevron');
+
+        // Fermer tous les dropdowns ouverts
+        document.querySelectorAll('.sort_dropdown.show').forEach(openDropdown => {
+            if (openDropdown !== dropdown) {
+                openDropdown.classList.remove('show');
+                const openButton = document.querySelector(`[aria-controls="${openDropdown.id}"]`);
+                const openChevron = openButton.querySelector('.chevron');
+                if (openChevron) {
+                    openChevron.classList.remove('rotate');
+                }
+            }
+        });
+
+        // Toggle le dropdown cliqué
+        dropdown.classList.toggle('show');
+        chevron.classList.toggle('rotate');
+    }
+
+    // Ferme tous les dropdowns lorsqu'on clique à l'extérieur
+    closeDropdowns(event) {
+        const isDropdownButton = event.target.closest('.sort_button');
+        if (!isDropdownButton) {
+            document.querySelectorAll('.sort_dropdown.show').forEach(dropdown => {
+                dropdown.classList.remove('show');
+                const button = document.querySelector(`[aria-controls="${dropdown.id}"]`);
+                const chevron = button.querySelector('.chevron');
+                if (chevron) {
+                    chevron.classList.remove('rotate');
+                }
+            });
+        }
+    }
     // Initialise le RecipeManager en récupérant les recettes, les affichant et en attachant les écouteurs d'événements.
     async init() {
         const dataRecipes = await this.getRecipes();
