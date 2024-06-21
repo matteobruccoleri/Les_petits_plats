@@ -22,7 +22,7 @@
             <h1 class="">Cherchez parmi plus de 1500 recettes<span>du quotidien, simples et délicieuses</span></h1>
             <form> 
                 <input class="form_search" type="text" placeholder="Rechercher une recette, un ingrédient, ..." id="searchInput">            
-                <a class="form_submit" type="submit" href="#main">
+                <a class="form_submit" href="#main">
                     <img class="black_loop" src="assets/icons/icon_black_loop.svg" alt="Rechercher">
                     <img class="yellow_loop" src="assets/icons/icon_yellow_loop.svg" alt="Rechercher">
                 </a>
@@ -35,7 +35,7 @@
                 <!-- Ingredients Dropdown -->
                 <div class="dropdown_filter">
                     <div class="filter_section">
-                        <button id="ingredientsButton" class="sort_button" role="button" aria-haspopup="listbox" aria-controls="ingredientsDropdown">
+                        <button id="ingredientsButton" class="sort_button" aria-haspopup="listbox" aria-controls="ingredientsDropdown">
                             <span class="sort_button_text">Ingrédients</span>
                             <img src="assets/icons/chevron.svg" class="chevron" alt="icon chevron"/>
                         </button>
@@ -45,7 +45,7 @@
                 <!-- Ustensils Dropdown -->
                 <div class="dropdown_filter">
                     <div class="filter_section">
-                        <button id="ustensilsButton" class="sort_button" role="button" aria-haspopup="listbox" aria-controls="ustensilsDropdown">
+                        <button id="ustensilsButton" class="sort_button" aria-haspopup="listbox" aria-controls="ustensilsDropdown">
                             <span class="sort_button_text">Ustensiles</span>
                             <img src="assets/icons/chevron.svg" class="chevron" alt="icon chevron"/>
                         </button>
@@ -55,7 +55,7 @@
                 <!-- appliances Dropdown -->
                 <div class="dropdown_filter">
                     <div class="filter_section">
-                        <button id="appliancesButton" class="sort_button" role="button" aria-haspopup="listbox" aria-controls="appliancesDropdown">
+                        <button id="appliancesButton" class="sort_button" aria-haspopup="listbox" aria-controls="appliancesDropdown">
                             <span class="sort_button_text">Appareils</span>
                             <img src="assets/icons/chevron.svg" class="chevron" alt="icon chevron"/>
                         </button>
@@ -68,7 +68,7 @@
         <!-- selected_filters -->
         <div class="selected_filters" id="selectedFilters"></div>
         <div id="noResultsMessage"></div>
-        <section class="recipes_wrapper"></section>
+        <div class="recipes_wrapper"></div>
     </main>
     <script type="module" src="scripts/pages/index.js"></script>
 </body>
