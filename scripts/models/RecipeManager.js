@@ -44,31 +44,51 @@ export default class RecipeManager {
     performSearch() {
         const searchInput = document.getElementById('searchInput');
         const searchTerm = searchInput.value.trim().toLowerCase();
-        let filteredRecipes = this.allRecipes;
-
+        let filteredRecipes = [];
+    
         // Filtre par terme de recherche si celui-ci contient 3 caractères ou plus
         if (searchTerm.length >= 3) {
-            filteredRecipes = this.allRecipes.filter(recipe => recipe.matchesSearch(searchTerm));
+            for (let i = 0; i < this.allRecipes.length; i++) {
+                if (this.allRecipes[i].matchesSearch(searchTerm)) {
+                    filteredRecipes.push(this.allRecipes[i]);
+                }
+            }
+        } else {
+            filteredRecipes = this.allRecipes;
         }
-
+    
         // Filtre par filtres actifs (ingrédients, ustensiles, appareils)
-        filteredRecipes = filteredRecipes.filter(recipe => {
-            const matchesIngredients = this.activeFilters.ingredients.length === 0 || this.activeFilters.ingredients.some(filter => recipe.ingredients.map(ing => ing.ingredient.toLowerCase()).includes(filter.toLowerCase()));
-            const matchesUstensils = this.activeFilters.ustensils.length === 0 || this.activeFilters.ustensils.some(filter => recipe.ustensils.map(ust => ust.toLowerCase()).includes(filter.toLowerCase()));
+        let finalFilteredRecipes = [];
+        for (let i = 0; i < filteredRecipes.length; i++) {
+            const recipe = filteredRecipes[i];
+            const matchesIngredients = this.activeFilters.ingredients.length === 0 || this.matchesFilters(recipe.ingredients.map(ing => ing.ingredient.toLowerCase()), this.activeFilters.ingredients);
+            const matchesUstensils = this.activeFilters.ustensils.length === 0 || this.matchesFilters(recipe.ustensils.map(ust => ust.toLowerCase()), this.activeFilters.ustensils);
             const matchesAppliances = this.activeFilters.appliances.length === 0 || this.activeFilters.appliances.includes(recipe.appliance.toLowerCase());
-
-            return matchesIngredients && matchesUstensils && matchesAppliances;
-        });
-
+    
+            if (matchesIngredients && matchesUstensils && matchesAppliances) {
+                finalFilteredRecipes.push(recipe);
+            }
+        }
+    
         const noResultsElement = document.getElementById('noResultsMessage');
-        if (filteredRecipes.length > 0) {
+        if (finalFilteredRecipes.length > 0) {
             if (noResultsElement) noResultsElement.innerHTML = ''; // Efface le message d'absence de résultats
-            this.displayRecipes(filteredRecipes); // Affiche les recettes filtrées
+            this.displayRecipes(finalFilteredRecipes); // Affiche les recettes filtrées
         } else {
             this.displayNoResultsMessage(searchTerm); // Affiche le message d'absence de résultats
         }
-        
-        this.updateDropdowns(filteredRecipes); // Met à jour les options des dropdowns
+    
+        this.updateDropdowns(finalFilteredRecipes); // Met à jour les options des dropdowns
+    }
+    
+    // Vérifie si tous les éléments des filtres actifs sont présents dans les éléments de la recette.
+    matchesFilters(recipeElements, activeFilters) {
+        for (let i = 0; i < activeFilters.length; i++) {
+            if (!recipeElements.includes(activeFilters[i].toLowerCase())) {
+                return false;
+            }
+        }
+        return true;
     }
 
     // Attache les écouteurs d'événements pour la barre de recherche et les boutons des dropdowns.
