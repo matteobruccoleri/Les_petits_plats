@@ -439,6 +439,13 @@ main {
         font-size: 14px;
         padding: 15px;
     }
+    .selected_filters {
+        flex-direction: column;
+    }
+    .selected-filter {
+        padding: 15px;
+        justify-content: space-between;
+    }
 }
 
 @media screen and (max-width: 425px) {
