@@ -312,10 +312,11 @@ main {
 }
 .selected-filter::after {
     content: "";
-    background-image: url(/assets/icons/icon_close.svg);
+    background-image: url(../assets/icons/icon_close.svg);
     width: 17px;
     height: 17px;
     background-repeat: no-repeat;
+    background-position: center;
 }
 .grey_loop {
     position: absolute;
